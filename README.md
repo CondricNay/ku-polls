@@ -17,5 +17,7 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 
 - [Vision Statement](../../wiki/Vision%20Statement)
 - [Requirements](../../wiki/Requirements)
+- [Development Plan](../../wiki/Requirements)
+- [Iteration 1 Plan](../../wiki/Requirements) and [Task Board](../../wiki/Requirements)
 
 [django-tutorial]: TODO-write-the-django-tutorial-URL-here

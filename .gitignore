@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings
+*.sqlite3
+
+# Media uploads
+media/
+
+# Static files (collectstatic)
+staticfiles/
+static/
+
+# Secret keys
+*.secret_key
+
+# Log files
+*.log
+
+# Environment variables
+.env
+
+# Compiled Python files
+*.pyc
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+
+# IDE settings
+.idea/
+.vscode/
+
+# Dependency directories
+venv/
+env/
+env3/
+env2/
+ENV/
+venv2/
+venv3/
+node_modules/
+
+# Compiled JavaScript files
+*.js.map
+
+# Docker
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.prod.yml
+Dockerfile*
+
+# Pipenv
+Pipfile.lock
+.pipenv/
