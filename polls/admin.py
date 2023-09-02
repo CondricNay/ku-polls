@@ -1,6 +1,11 @@
 from django.contrib import admin
 
-from .models import Question
+from .models import Choice, Question
 
 # Register your models here.
-admin.site.register(Question)
+model_list = [
+    Choice,
+    Question
+]
+
+admin.site.register(model_list)
