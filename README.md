@@ -49,8 +49,8 @@ https://cpske.github.io/ISP) course at Kasetsart University.
 All project documents are in the [Project Wiki](../../wiki/Home).
 
 - [Vision Statement](../../wiki/Vision%20Statement)
-- [Requirements](../../wiki/Development-Plan)
-- [Development Plan](../../wiki/Iteration-1-Plan)
-- [Iteration 1 Plan](../../wiki/Requirements) and [Task Board](https://github.com/users/CondricNay/projects/3/views/1)
+- [Requirements](../../wiki/Requirements)
+- [Development Plan](../../wiki/Development-Plan)
+- [Iteration 1 Plan](../../wiki/Iteration-1-Plan) and [Task Board](https://github.com/users/CondricNay/projects/3/views/1)
 
 [django-tutorial]: https://docs.djangoproject.com/en/4.2/intro/tutorial01/
