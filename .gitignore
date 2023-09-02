@@ -9,10 +9,6 @@ __pycache__/
 # Media uploads
 media/
 
-# Static files (collectstatic)
-staticfiles/
-static/
-
 # Secret keys
 *.secret_key
 
@@ -56,4 +52,5 @@ Dockerfile*
 
 # Pipenv
 Pipfile.lock
+Pipfile
 .pipenv/
