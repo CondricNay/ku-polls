@@ -1,13 +1,25 @@
-{% load static %}
+{% extends "polls/layout.html" %}
 
-<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+{% block body %}
+    <h1> Poll List </h1>
+    {% if latest_question_list %}
 
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+        {% for question in latest_question_list %}
+        <a class="list-group-item list-group-item-action" href="{% url 'polls:detail' question.id %}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"> {{ question.question_text }} </h5>
+                <small>{{ question.pub_date }}</small>
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+                <small class="mt-2">Created by USER</small>
+                <form action="{% url 'polls:results' question.id %}">
+                    <input class="btn-primary" type="submit" value="View Results">
+                </form>
+            </div>
+        </a>
+        {% endfor %}
+
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+{% endblock %}

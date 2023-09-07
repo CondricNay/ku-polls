@@ -1,17 +1,38 @@
+{% extends "polls/layout.html" %}
+
+{% block body %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
     <fieldset>
         <legend><h1>{{ question.question_text }}</h1></legend>
+        <div class="d-flex w-100 justify-content-between">
+            <span> Created by USER </span>
+            on {{ question.pub_date }} <br><br>
+        </div>
+
         {% if error_message %}
-            <p>
-                <strong>{{ error_message }}</strong>
-            </p>
+            <p><strong>{{ error_message }}</strong></p>
         {% endif %}
         
-        {% for choice in question.choice_set.all %}
-            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
-    </fieldset>
-    <input type="submit" value="Vote">
+        <ul class="list-group">
+            {% for choice in question.choice_set.all %}
+            <li class="list-group-item form-check">
+                <div class="ml-3">
+                    <input class="form-check-input me-1" type="radio" name="choice" 
+                        id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label class="h6 form-check-label" for="choice{{ forloop.counter }}">
+                        {{ choice.choice_text }}
+                    </label>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </fieldset><br>
+    
+    <input class="btn btn-success" type="submit" value="Vote">
 </form>
+
+<form action="{% url 'polls:results' question.id %}">
+    <input class="btn btn-primary" type="submit" value="View Results">
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Link to Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Link to Local CSS -->
+        <link rel="stylesheet" href="style.css">
+        <title> KU Polls </title>
+    </head>
+
+    <body>
+        <nav class="navbar bg-light nav-fill">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="h5 nav-link active" href={% url "polls:index" %}>Poll List</a>
+                </li>
+                <li class="h5 nav-item">
+                    <a class="nav-link" href={% url "polls:index" %}>sss</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="mx-4 my-2">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
