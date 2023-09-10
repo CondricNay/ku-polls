@@ -1,25 +1,40 @@
 {% extends "polls/layout.html" %}
 
+{% block poll_info %}
+{% endblock %}
+
 {% block body %}
-    <h1> Poll List </h1>
-    {% if latest_question_list %}
+<h1> Poll List </h1>
+    {% for question in latest_question_list %}
+    <a class="list-group-item list-group-item-action" href="{% url 'polls:detail' question.id %}">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"> {{ question.question_text }}
+            {% if question.can_vote %}
+                <span class="badge badge-success">Open</span>
+            {% else %}
+                <span class="badge badge-secondary">Closed</span>
+            {% endif %}
 
-        {% for question in latest_question_list %}
-        <a class="list-group-item list-group-item-action" href="{% url 'polls:detail' question.id %}">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1"> {{ question.question_text }} </h5>
-                <small>{{ question.pub_date }}</small>
-            </div>
-            <div class="d-flex w-100 justify-content-between">
-                <small class="mt-2">Created by USER</small>
-                <form action="{% url 'polls:results' question.id %}">
-                    <input class="btn-primary" type="submit" value="View Results">
-                </form>
-            </div>
-        </a>
-        {% endfor %}
+            {% if question.was_published_recently %}
+                <span class="badge badge-danger">New</span>
+            {% endif %}
+            </h5>
+            <small class="mt-1">Created on {{ question.pub_date }}</small>
+        </div>
 
-    {% else %}
+        <div class="d-flex w-100 justify-content-between">
+            <small class="mb-2">This poll ends in {{ question.get_remaining_time }} </small>
+            <small class="mb-2">Ends on {{ question.end_date }}</small>
+        </div>
+
+        <div class="d-flex w-100 justify-content-between">
+            Created by USER
+            <form action="{% url 'polls:results' question.id %}">
+                <input class="btn-primary" type="submit" value="View Results">
+            </form>
+        </div>
+    </a>
+    {% empty %}
         <p>No polls are available.</p>
-    {% endif %}
+    {% endfor %}
 {% endblock %}
