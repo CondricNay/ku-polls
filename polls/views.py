@@ -1,10 +1,9 @@
 from django.db.models.query import QuerySet
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
-
 
 from .models import Choice, Question
 
@@ -33,6 +32,12 @@ class DetailView(generic.DetailView):
         """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
+    def get(self, request, *args, **kwargs) -> HttpResponse | HttpResponseRedirect:
+        try:
+            return super().get(request, *args, **kwargs)
+        except Http404:
+            return redirect(reverse('polls:index'))
+
 
 class ResultsView(generic.DetailView):
     model = Question
@@ -49,7 +54,7 @@ def vote(request: HttpRequest, question_id: int) -> HttpResponseRedirect | HttpR
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        return redirect(reverse('polls:results', args=(question.id,)))
     
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
