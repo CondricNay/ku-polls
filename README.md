@@ -1,3 +1,5 @@
+[![unit test](https://github.com/CondricNay/ku-polls/actions/workflows/python-app.yml/badge.svg)](https://github.com/CondricNay/ku-polls/actions/workflows/python-app.yml)
+
 ## KU Polls: Online Survey Questions 
 
 This Django application is designed for conducting online polls and surveys. 
