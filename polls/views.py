@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db.models.query import QuerySet
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
@@ -36,7 +37,9 @@ class DetailView(generic.DetailView):
         try:
             return super().get(request, *args, **kwargs)
         except Http404:
+            messages.warning(request, 'Invalid Page Access')
             return redirect(reverse('polls:index'))
+            
 
 
 class ResultsView(generic.DetailView):

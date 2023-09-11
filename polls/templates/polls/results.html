@@ -44,8 +44,8 @@
     </div>
 </div>
 
-<form action="{% url 'polls:detail' question.id %}">
-    <input class="btn btn-primary" type="submit" value="Back to Vote">
+<form action="{% url 'polls:index' %}">
+    <input class="btn btn-primary" type="submit" value="Back to Poll List">
 </form>
 
 {% endblock %}

@@ -1,6 +1,15 @@
 {% extends "polls/layout.html" %}
 
 {% block poll_info %}
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
