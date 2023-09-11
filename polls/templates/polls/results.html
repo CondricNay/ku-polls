@@ -1,23 +1,51 @@
 {% extends "polls/layout.html" %}
 
+{% block poll_info %}
+    {{ block.super }}
+{% endblock %}
+
 {% block body %}
-    <h1>{{ question.question_text }}</h1>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table text-center table-bordered table-striped">
+                <tr class="table-secondary">
+                    <th>Choice</th>
+                    <th>Vote</th>
+                </tr>
+                {% for choice in question.choice_set.all %}
+                <tr>
+                    <td>{{ choice.choice_text }}</td>
+                    <td>{{ choice.votes }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
 
-    <table class="table text-center w-50 table-bordered table-striped">
-        <tr class="table-secondary">
-            <th>Choice</th>
-            <th>Vote</th>
-        </tr>
+        <div class="col">
+            <div class="card">
+                <div class="h5 card-header d-flex justify-content-start">
+                    <span> Total Votes</span>
+                    <span class="badge badge-success mx-1"></span>
+                </div>
 
-        {% for choice in question.choice_set.all %}
-        <tr>
-            <td> {{ choice.choice_text }} </td>
-            <td> {{ choice.votes }} </td>
-            {% endfor %}
-        </tr>
-    <table>
+                <div class="card-body">
+                    <h5 class="card-title">Options</h5>
+                    {% for choice in question.choice_set.all %}
+                    <div class="h5 progress" style="height: 30px;">
+                        <div class="progress-bar" style="width: {{ choice.get_percentage_vote }}%;">
+                            {{ choice.choice_text }} ({{ choice.get_percentage_vote|floatformat:2 }}%)
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <form action="{% url 'polls:detail' question.id %}">
-        <input class="btn btn-primary" type="submit" value="Back to Vote">
-    </form>
+<form action="{% url 'polls:index' %}">
+    <input class="btn btn-primary" type="submit" value="Back to Poll List">
+</form>
+
 {% endblock %}
