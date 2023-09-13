@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    {% block head %}
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +13,10 @@
         <link rel="stylesheet" href="style.css">
         <title> KU Polls </title>
     </head>
+    {% endblock %}
 
     <body>
+        {% block navbar %}
         <nav class="navbar bg-light nav-fill">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -23,7 +26,38 @@
                     <a class="h5 nav-link" href={% url "polls:index" %}>to be added..</a>
                 </li>
             </ul>
+
+            <nav class="h5 bg-light">
+                {% if user.is_authenticated %}
+                    <form class="d-flex" action="{% url 'logout' %}">
+                        <span class="h5 mt-3 mr-3"> Welcome back, {{ user.username }}</span>
+                        <button class="mt-2 btn btn-dark" type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <form class="d-flex" action="{% url 'login' %}">
+                        <span class="h5 mt-3 mr-3"> Please Login</span>
+                        <button class="mt-2 btn btn-dark" type="submit">Login</button>
+                    </form>
+                {% endif %}
+            </nav>
         </nav>
+        {% endblock %}
+        
+        {% block messages %}
+        {% if messages %}
+        <div class="mx-4 my-2 messages">
+            {% for message in messages %}
+                {% if message.tags == "error" %}
+                <div class="alert alert-danger">
+                {% else %}
+                <div class="alert alert-{{ message.tags }}">
+                {% endif %}
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endblock %}
 
         <div class="mx-4 my-2">
             {% block poll_info %}                
@@ -50,7 +84,13 @@
                     <span>Ends on {{ question.end_date }}</span>
                 </div><br>
             {% endblock %}
-
+            
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+            
             {% block body %}
             {% endblock %}
         </div>

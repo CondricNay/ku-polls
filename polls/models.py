@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Max, Min, Sum
 from django.utils import timezone
@@ -54,6 +55,7 @@ class Question(models.Model):
         return str(remaining_time).split(".")[0]
 
     def get_all_votes(self) -> int:
+        # bug here, something like Vote.object.filter(choice_set=self).count()????
         all_choices = Choice.objects.filter(question=self.id)
         all_votes = all_choices.aggregate(all_votes=Sum('votes'))['all_votes']
         return all_votes
@@ -81,7 +83,10 @@ class Choice(models.Model):
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+
+    @property
+    def votes(self):
+        return self.vote_set.count()
 
     def get_each_vote(self) -> int:
         current_choice = Choice.objects.get(id=self.id)
@@ -95,3 +100,9 @@ class Choice(models.Model):
         Return a string representation of the choice.
         """
         return self.choice_text
+
+
+class Vote(models.Model):
+    """Records a Vote """
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

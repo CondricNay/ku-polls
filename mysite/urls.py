@@ -18,8 +18,12 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 from django.urls import include, path
 
+from polls import views
+
 urlpatterns = [
     path('', RedirectView.as_view(url='polls/', permanent=False)),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/sign_up/', views.sign_up, name='sign_up'),
     path('polls/', include('polls.urls')),
 ]
