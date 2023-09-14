@@ -63,7 +63,7 @@
             {% block poll_info %}                
                 <h2 class="my-1">{{ question.question_text }}</h2>
                 <h4>
-                {% if question.can_vote %}
+                {% if question.is_published %}
                     <span class="mb-2 badge badge-success">Open</span>
                 {% else %}
                     <span class="badge badge-secondary">Closed</span>

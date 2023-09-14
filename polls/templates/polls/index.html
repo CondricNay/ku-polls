@@ -7,17 +7,17 @@
 <h1> Poll List </h1>
 {% for question in latest_question_list %}
     <a class="list-group-item list-group-item-action
-        {% if not question.can_vote %} 
+        {% if not question.is_published %} 
             list-group-item-secondary
         {% endif %}"
-        {% if question.can_vote %} 
+        {% if question.is_published %} 
             href="{% url 'polls:detail' question.id %}"
         {% endif %}
     >
 
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"> {{ question.question_text }}
-                {% if question.can_vote %}
+                {% if question.is_published %}
                     <span class="badge badge-success">Open</span>
                 {% else %}
                     <span class="badge badge-secondary">Closed</span>
