@@ -40,6 +40,12 @@
     </div>
 </div>
 
+{% if user.is_authenticated %}
+<form action="{% url 'polls:detail' pk=question.pk %}">
+    <input class="btn btn-info" type="submit" value="Change your vote">
+</form>
+{% endif %}
+
 <form action="{% url 'polls:index' %}">
     <input class="btn btn-primary" type="submit" value="Back to Poll List">
 </form>

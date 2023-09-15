@@ -20,12 +20,12 @@ class IndexView(generic.ListView):
 
     def get_queryset(self) -> QuerySet[Question]:
         """
-        Return the last five published questions (not including those set to be
+        Return the last ten published questions (not including those set to be
         published in the future).
         """
         return Question.objects.filter(
             pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
+        ).order_by('-pub_date')[:10]
 
 
 class DetailView(generic.DetailView):
@@ -78,9 +78,9 @@ def sign_up(request) -> HttpResponse | HttpResponseRedirect:
 def vote(request: HttpRequest, question_id: int) -> HttpResponse | HttpResponseRedirect:
     try:
         question = get_object_or_404(Question, pk=question_id)
+        authorized_user = AuthorizedUser()
 
-        if question.is_published():
-            authorized_user = AuthorizedUser()
+        if authorized_user.can_vote(request, question):
             authorized_user.submit_vote(request, question)
             return redirect(reverse('polls:results', args=(question.id,)))
 

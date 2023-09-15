@@ -127,3 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'polls:index'
 LOGOUT_REDIRECT_URL = 'login'
+SESSION_COOKIE_AGE = 86400

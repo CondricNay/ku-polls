@@ -9,11 +9,22 @@
     {% endif %}
 
     <ul class="list-group">
+        Session recent choice: {{ request.session.recent_choice_ids }}<br>
+        Session recent question: {{ request.session.recent_question_ids }}<br>
         {% for choice in question.choice_set.all %}
+            Q: {{ question.id }}<br>
+            C: {{ choice.id }}<br> 
+
+
         <li class="list-group-item form-check">
             <div class="ml-3">
-                <input class="form-check-input me-1" type="radio" name="choice" 
-                    id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                <input class="form-check-input" type="radio" name="choice"
+                id="choice{{ forloop.counter }}" value="{{ choice.id }}" 
+
+                {% if choice.id in request.session.recent_choice_ids %}
+                    checked
+                {% endif %}>
+
                 <label class="h6 form-check-label" for="choice{{ forloop.counter }}">
                     {{ choice.choice_text }}
                 </label>

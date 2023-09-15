@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Max, Min, Sum
+from django.db.models import Max, Min
 from django.http import HttpRequest
 from django.utils import timezone
 
@@ -115,6 +115,29 @@ class AuthorizedUser(models.Model):
             else:
                 existing_vote.choice = new_choice
                 existing_vote.save()
+
+            self.update_session(request, question)
+
+    def update_session(self, request: HttpRequest, question: Question) -> None:
+        # Get the existing 'recent_question_ids' list from the session or create an empty list if it doesn't exist
+        recent_question_ids = request.session.get('recent_question_ids', [])
+
+        # Get the existing 'recent_choice_ids' list from the session or create an empty list if it doesn't exist
+        recent_choice_ids = request.session.get('recent_choice_ids', [])
+        
+        for i in range(len(recent_question_ids)):
+            if recent_question_ids[i] == question.id:
+                recent_choice_ids[i] = int(request.POST["choice"])
+                break
+
+        else:
+            # Append the new values to the lists
+            recent_question_ids.append(int(question.id))
+            recent_choice_ids.append(int(request.POST["choice"]))
+
+        # Update the session variables with the new lists
+        request.session['recent_question_ids'] = recent_question_ids
+        request.session['recent_choice_ids'] = recent_choice_ids
 
 
 class Vote(models.Model):
