@@ -11,10 +11,13 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .models import AuthorizedUser, Choice, Question, now_plus
+from .models import AuthorizedUser, Choice, Question
 
 
 class IndexView(generic.ListView):
+    """
+    View for displaying a list of the latest poll questions.
+    """
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
@@ -29,6 +32,9 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
+    """
+    View for displaying the details of a poll question.
+    """
     model = Question
     template_name = 'polls/detail.html'
 
@@ -47,11 +53,17 @@ class DetailView(generic.DetailView):
 
 
 class ResultsView(generic.DetailView):
+    """
+    View for displaying the results of a poll question.
+    """
     model = Question
     template_name = 'polls/results.html'
 
 
 def sign_up(request) -> HttpResponse | HttpResponseRedirect:
+    """
+    View for user registration.
+    """
     if request.method == "POST":
         form = UserCreationForm(request.POST)
 
@@ -61,22 +73,26 @@ def sign_up(request) -> HttpResponse | HttpResponseRedirect:
 
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username,password=raw_password)
+            user = authenticate(username=username, password=raw_password)
             login(request, user)
 
             return redirect(reverse('polls:index'))
-        
+
         else:
             for each_error in form.errors.values():
                 messages.error(request, each_error)
-        
+
     else:
         form = UserCreationForm()
 
     return render(request, "registration/sign_up.html")
 
+
 @login_required
 def vote(request: HttpRequest, question_id: int) -> HttpResponseRedirect:
+    """
+    View for submitting votes on poll questions.
+    """
     try:
         question = get_object_or_404(Question, pk=question_id)
         authorized_user = AuthorizedUser()
