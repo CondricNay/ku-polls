@@ -40,7 +40,7 @@
     </div>
 </div>
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and question.is_published %}
 <form action="{% url 'polls:detail' pk=question.pk %}">
     <input class="btn btn-info" type="submit" value="Change your vote">
 </form>

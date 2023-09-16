@@ -4,19 +4,9 @@
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
     <fieldset>
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-    {% endif %}
-
-    <ul class="list-group">
-        Session recent choice: {{ request.session.recent_choice_ids }}<br>
-        Session recent question: {{ request.session.recent_question_ids }}<br>
+    <div class="list-group">
         {% for choice in question.choice_set.all %}
-            Q: {{ question.id }}<br>
-            C: {{ choice.id }}<br> 
-
-
-        <li class="list-group-item form-check">
+        <div class="list-group-item form-check">
             <div class="ml-3">
                 <input class="form-check-input" type="radio" name="choice"
                 id="choice{{ forloop.counter }}" value="{{ choice.id }}" 
@@ -29,9 +19,9 @@
                     {{ choice.choice_text }}
                 </label>
             </div>
-        </li>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
     </fieldset><br>
     
     <input class="btn btn-success" type="submit" value="Vote">

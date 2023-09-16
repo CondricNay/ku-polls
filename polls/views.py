@@ -42,7 +42,7 @@ class DetailView(generic.DetailView):
         try:
             return super().get(request, *args, **kwargs)
         except Http404:
-            messages.warning(request, 'Invalid Page Access')
+            messages.error(request, "You don't have access to that page")
             return redirect(reverse('polls:index'))
 
 
@@ -75,20 +75,20 @@ def sign_up(request) -> HttpResponse | HttpResponseRedirect:
     return render(request, "registration/sign_up.html")
 
 @login_required
-def vote(request: HttpRequest, question_id: int) -> HttpResponse | HttpResponseRedirect:
+def vote(request: HttpRequest, question_id: int) -> HttpResponseRedirect:
     try:
         question = get_object_or_404(Question, pk=question_id)
         authorized_user = AuthorizedUser()
 
         if authorized_user.can_vote(request, question):
             authorized_user.submit_vote(request, question)
+            messages.success(request, 'The vote has been successfully submitted.')  
             return redirect(reverse('polls:results', args=(question.id,)))
+        else:
+            messages.error(request, "You are not allowed to vote on this poll")
 
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request, 'polls/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-
-# TODO: Use messages to display a confirmation on the results page.
+        messages.error(request, "You didn't select a choice.")
+    
+    return redirect(reverse('polls:detail', args=(question.id,)))
