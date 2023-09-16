@@ -85,10 +85,10 @@ def vote(request: HttpRequest, question_id: int) -> HttpResponseRedirect:
             messages.success(request, 'The vote has been successfully submitted.')  
             return redirect(reverse('polls:results', args=(question.id,)))
         else:
-            messages.error(request, "You are not allowed to vote on this poll")
+            messages.error(request, "You are not allowed to vote on this poll.")
 
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
         messages.error(request, "You didn't select a choice.")
-    
+
     return redirect(reverse('polls:detail', args=(question.id,)))

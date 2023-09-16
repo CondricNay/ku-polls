@@ -2,7 +2,6 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Max, Min
 from django.http import HttpRequest
 from django.utils import timezone
 
@@ -48,19 +47,9 @@ class Question(models.Model):
         return str(remaining_time).split(".")[0]
 
     def get_all_votes(self) -> int:
-        # bug here, something like Vote.object.filter(choice_set=self).count()????
-        all_choices = Choice.objects.filter(question=self.id)
-        return all_choices.count()
-
-    def get_max_vote(self) -> int:
-        all_choices = Choice.objects.filter(question=self.id)
-        max_vote = all_choices.aggregate(max_vote=Max('votes'))['max_vote']
-        return max_vote
-
-    def get_min_vote(self) -> int:
-        all_choices = Choice.objects.filter(question=self.id)
-        min_vote = all_choices.aggregate(min_vote=Min('votes'))['min_vote']
-        return min_vote
+        related_choices = Choice.objects.filter(question=self)
+        all_votes = Vote.objects.filter(choice__in=related_choices).count()
+        return all_votes
 
     def __str__(self) -> str:
         """
@@ -79,13 +68,9 @@ class Choice(models.Model):
     @property
     def votes(self):
         return self.vote_set.count()
-
-    def get_each_vote(self) -> int:
-        current_choice = Choice.objects.get(id=self.id)
-        return current_choice.votes
-
+    
     def get_percentage_vote(self) -> float:
-        return (self.get_each_vote()/self.question.get_all_votes())*100
+        return (self.votes/self.question.get_all_votes())*100
 
     def __str__(self) -> str:
         """
@@ -119,19 +104,17 @@ class AuthorizedUser(models.Model):
             self.update_session(request, question)
 
     def update_session(self, request: HttpRequest, question: Question) -> None:
-        # Get the existing 'recent_question_ids' list from the session or create an empty list if it doesn't exist
+        # Get the existing 'recent_question_ids' and 'recent_choice_ids' list from the session 
+        # or create an empty list if it doesn't exist
         recent_question_ids = request.session.get('recent_question_ids', [])
-
-        # Get the existing 'recent_choice_ids' list from the session or create an empty list if it doesn't exist
         recent_choice_ids = request.session.get('recent_choice_ids', [])
-        
-        for i in range(len(recent_question_ids)):
-            if recent_question_ids[i] == question.id:
-                recent_choice_ids[i] = int(request.POST["choice"])
-                break
 
-        else:
-            # Append the new values to the lists
+        try:
+            # Try to find the index of the current question in recent_question_ids
+            index = recent_question_ids.index(question.id)
+            recent_choice_ids[index] = int(request.POST["choice"])
+        except ValueError:
+            # If the question is not in recent_question_ids, append it to both lists
             recent_question_ids.append(int(question.id))
             recent_choice_ids.append(int(request.POST["choice"]))
 
