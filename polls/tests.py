@@ -1,10 +1,8 @@
-import datetime
-
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.utils import timezone
-from .models import Question, Choice, Vote, AuthorizedUser
+
+from .models import Question, Choice, Vote, AuthorizedUser, now_plus
 
 
 class QuestionModelTests(TestCase):
@@ -13,7 +11,7 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns False for questions whose pub_date
         is in the future.
         """
-        future_time = timezone.now() + datetime.timedelta(days=30)
+        future_time = now_plus(30)  # Add 30 days to the current time
         future_question = Question(pub_date=future_time)
         self.assertIs(future_question.was_published_recently(), False)
 
@@ -22,7 +20,7 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns False for questions whose pub_date
         is older than 1 day.
         """
-        old_time = timezone.now() - datetime.timedelta(days=2)
+        old_time = now_plus(-2)  # Subtract 2 days from the current time
         old_question = Question(pub_date=old_time)
         self.assertIs(old_question.was_published_recently(), False)
 
@@ -31,7 +29,7 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns True for questions whose pub_date
         is within the last day.
         """
-        recent_time = timezone.now() - datetime.timedelta(hours=12)
+        recent_time = now_plus(-0.5)  # Subtract 0.5 days from the current time (12 hours)
         recent_question = Question(pub_date=recent_time)
         self.assertIs(recent_question.was_published_recently(), True)
 
@@ -39,7 +37,7 @@ class QuestionModelTests(TestCase):
         """
         Test that a question with a future pub date isn't considered published.
         """
-        future_time = timezone.now() + datetime.timedelta(days=1)
+        future_time = now_plus(1)  # Add 1 day to the current time
         future_question = Question(pub_date=future_time)
         self.assertFalse(future_question.is_published())
 
@@ -54,7 +52,7 @@ class QuestionModelTests(TestCase):
         """
         Test that a question with a past pub date is considered published.
         """
-        past_time = timezone.now() - datetime.timedelta(days=1)
+        past_time = now_plus(-1)  # Subtract 1 day from the current time
         past_question = Question(pub_date=past_time)
         self.assertTrue(past_question.is_published())
 
@@ -66,8 +64,8 @@ class ChoiceModelTests(TestCase):
         """
         question = Question.objects.create(
             question_text="Sample Question",
-            pub_date=timezone.now() - datetime.timedelta(days=1),
-            end_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(-1),  # Subtract 1 day from the current time
+            end_date=now_plus(1)    # Add 1 day to the current time
         )
         choice1 = Choice.objects.create(
             question=question,
@@ -91,8 +89,8 @@ class AuthorizedUserTests(TestCase):
         self.user = User.objects.create_user(username='testuser', password='testpass')
         self.question = Question.objects.create(
             question_text="Sample Question",
-            pub_date=timezone.now() - datetime.timedelta(days=1),
-            end_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(-1),  # Subtract 1 day from the current time
+            end_date=now_plus(1)    # Add 1 day to the current time
         )
         self.authorized_user = AuthorizedUser(user=self.user)
 
@@ -119,7 +117,7 @@ class AuthorizedUserTests(TestCase):
         Test that the existing vote for a user and question is retrieved correctly.
         """
         self.client.login(username='testuser', password='testpass')
-        
+
         response = self.client.get(reverse('polls:detail', args=(self.question.id,)))
         self.assertEqual(response.status_code, 200)
 
@@ -150,7 +148,7 @@ class ViewsTests(TestCase):
         """
         question = Question.objects.create(
             question_text="Past question.",
-            pub_date=timezone.now() - datetime.timedelta(days=1)
+            pub_date=now_plus(-1)  # Subtract 1 day from the current time
         )
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
@@ -164,7 +162,7 @@ class ViewsTests(TestCase):
         """
         Question.objects.create(
             question_text="Future question.",
-            pub_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(1)  # Add 1 day to the current time
         )
         response = self.client.get(reverse('polls:index'))
         self.assertContains(response, "No polls are available.")
@@ -176,7 +174,7 @@ class ViewsTests(TestCase):
         """
         future_question = Question.objects.create(
             question_text='Future question.',
-            pub_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(1)  # Add 1 day to the current time
         )
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
@@ -188,7 +186,7 @@ class ViewsTests(TestCase):
         """
         past_question = Question.objects.create(
             question_text='Past Question.',
-            pub_date=timezone.now() - datetime.timedelta(days=1)
+            pub_date=now_plus(-1)  # Subtract 1 day from the current time
         )
         url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
@@ -201,8 +199,8 @@ class ViewsTests(TestCase):
         user = User.objects.create_user(username='testuser', password='testpass')
         question = Question.objects.create(
             question_text="Sample Question",
-            pub_date=timezone.now() - datetime.timedelta(days=1),
-            end_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(-1),  # Subtract 1 day from the current time
+            end_date=now_plus(1)    # Add 1 day to the current time
         )
         choice = Choice.objects.create(
             question=question,
@@ -218,19 +216,36 @@ class ViewsTests(TestCase):
         """
         question = Question.objects.create(
             question_text="Sample Question",
-            pub_date=timezone.now() - datetime.timedelta(days=1),
-            end_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(-1),  # Subtract 1 day from the current time
+            end_date=now_plus(1)    # Add 1 day to the current time
         )
         choice = Choice.objects.create(
             question=question,
             choice_text="Choice 1"
         )
         response = self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': choice.id})
-        
+
         # Check if the response is a redirect to the login page with a 'next' parameter
         self.assertEqual(response.status_code, 302)  # 302 is a redirect status
         self.assertRedirects(response, reverse('login') + f'?next={reverse("polls:vote", args=(question.id,))}')
 
+    def test_vote_view_with_valid_choice(self):
+        """
+        Test that the vote view handles a valid choice correctly.
+        """
+        user = User.objects.create_user(username='testuser', password='testpass')
+        question = Question.objects.create(
+            question_text="Sample Question",
+            pub_date=now_plus(-1),  # Subtract 1 day from the current time
+            end_date=now_plus(1)    # Add 1 day to the current time
+        )
+        choice = Choice.objects.create(
+            question=question,
+            choice_text="Choice 1"
+        )
+        self.client.login(username='testuser', password='testpass')
+        response = self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': choice.id})
+        self.assertRedirects(response, reverse('polls:results', args=(question.id,)))
 
     def test_vote_view_with_invalid_choice(self):
         """
@@ -239,8 +254,8 @@ class ViewsTests(TestCase):
         user = User.objects.create_user(username='testuser', password='testpass')
         question = Question.objects.create(
             question_text="Sample Question",
-            pub_date=timezone.now() - datetime.timedelta(days=1),
-            end_date=timezone.now() + datetime.timedelta(days=1)
+            pub_date=now_plus(-1),  # Subtract 1 day from the current time
+            end_date=now_plus(1)    # Add 1 day to the current time
         )
         self.client.login(username='testuser', password='testpass')
         response = self.client.post(reverse('polls:vote', args=(question.id,)), {'choice': 42})

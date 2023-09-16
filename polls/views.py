@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .models import Choice, Question, AuthorizedUser
+from .models import AuthorizedUser, Choice, Question, now_plus
 
 
 class IndexView(generic.ListView):
@@ -50,14 +50,15 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'polls/results.html'
 
+
 def sign_up(request) -> HttpResponse | HttpResponseRedirect:
     if request.method == "POST":
         form = UserCreationForm(request.POST)
-        
+
         if form.is_valid():
             form.save()
-            messages.success(request, 'Account created successfully')  
-            
+            messages.success(request, 'Account created successfully')
+
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username,password=raw_password)
@@ -82,10 +83,10 @@ def vote(request: HttpRequest, question_id: int) -> HttpResponseRedirect:
 
         if authorized_user.can_vote(request, question):
             authorized_user.submit_vote(request, question)
-            messages.success(request, 'The vote has been successfully submitted.')  
+            messages.success(request, 'Vote has been successfully submitted.')
             return redirect(reverse('polls:results', args=(question.id,)))
         else:
-            messages.error(request, "You are not allowed to vote on this poll.")
+            messages.error(request, "Voting on this poll is not allowed.")
 
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
