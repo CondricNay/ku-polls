@@ -52,6 +52,7 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 
 - [Vision Statement](../../wiki/Vision%20Statement)
 - [Requirements](../../wiki/Requirements)
+- [Domain Model](../../wiki/Domain-Model)
 - [Development Plan](../../wiki/Development-Plan)
 - [Iteration 1 Plan](../../wiki/Iteration-1-Plan)
 - [Iteration 2 Plan](../../wiki/Iteration-2-Plan)
@@ -59,3 +60,14 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Task Board](https://github.com/users/CondricNay/projects/3/views/1)
 
 [django-tutorial]: https://docs.djangoproject.com/en/4.2/intro/tutorial01/
+
+
+## Demo Users
+
+| Username  | Password        |
+|-----------|-----------------|
+|   harry   | hackme22        |
+|   ron     | hackme22        |
+|  hermione | hackme22        |
+|   draco   | hackme22        |
+

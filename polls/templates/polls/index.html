@@ -35,7 +35,7 @@
         </div>
 
         <div class="d-flex w-100 justify-content-between">
-            Created by USER
+            Total votes: {{ question.get_all_votes }}
             <form action="{% url 'polls:results' question.id %}">
                 <input class="btn-primary" type="submit" value="View Results">
             </form>
