@@ -111,7 +111,7 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
 
     @property
-    def votes(self) -> None:
+    def votes(self) -> int:
         """
         Get the number of votes for this choice.
 
