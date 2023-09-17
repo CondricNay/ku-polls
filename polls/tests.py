@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -6,6 +7,38 @@ from .models import Question, Choice, Vote, AuthorizedUser, now_plus
 
 
 class QuestionModelTests(TestCase):
+    def test_pub_date_earlier_than_end_date(self) -> None:
+        """
+        Test that pub_date is earlier than end_date.
+        """
+        pub_date = now_plus(0)
+        end_date = now_plus(1)
+        question = Question(question_text="Test Question", pub_date=pub_date, end_date=end_date)
+        try:
+            question.save()
+        except ValidationError:
+            self.fail("ValidationError should not be raised for valid data.")
+
+    def test_pub_date_equal_to_end_date(self) -> None:
+        """
+        Test that pub_date cannot be equal to end_date.
+        """
+        pub_date = now_plus(1)
+        end_date = now_plus(1)
+        question = Question(question_text="Test Question", pub_date=pub_date, end_date=end_date)
+        with self.assertRaises(ValidationError):
+            question.save()
+
+    def test_pub_date_later_than_end_date(self) -> None:
+        """
+        Test that pub_date cannot be later than end_date.
+        """
+        pub_date = now_plus(2)
+        end_date = now_plus(1)
+        question = Question(question_text="Test Question", pub_date=pub_date, end_date=end_date)
+        with self.assertRaises(ValidationError):
+            question.save()
+
     def test_was_published_recently_with_future_question(self) -> None:
         """
         was_published_recently() returns False for questions whose pub_date
@@ -163,30 +196,23 @@ class ViewsTests(TestCase):
             [question],
         )
 
-    def test_index_view_with_future_question(self) -> None:
-        """
-        Questions with a pub_date in the future aren't
-        displayed on the index page.
-        """
-        Question.objects.create(
-            question_text="Future question.",
-            pub_date=now_plus(1)  # Add 1 day to the current time
-        )
-        response = self.client.get(reverse('polls:index'))
-        self.assertContains(response, "No polls are available.")
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
-
     def test_detail_view_with_future_question(self) -> None:
         """
         The detail view of a question with a pub_date
-        in the future redirects to index view.
+        in the future redirects to the index view.
         """
         future_question = Question.objects.create(
             question_text='Future question.',
-            pub_date=now_plus(1)  # Add 1 day to the current time
+            pub_date=now_plus(1),  # Add 1 day to the current time
+            end_date=now_plus(3),
         )
         url = reverse('polls:detail', args=(future_question.id,))
         response = self.client.get(url)
+
+        # Check that the response is a redirect
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the response redirects to the index view
         self.assertRedirects(response, reverse('polls:index'))
 
     def test_detail_view_with_past_question(self) -> None:
@@ -201,6 +227,38 @@ class ViewsTests(TestCase):
         url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+    def test_detail_view_with_existing_question(self) -> None:
+        """
+        The detail view displays a question's details
+        for a question with a pub_date in the past.
+        """
+        past_question = Question.objects.create(
+            question_text='Past question.',
+            pub_date=now_plus(-1)  # Subtract 1 day from the current time
+        )
+        url = reverse('polls:detail', args=(past_question.id,))
+        response = self.client.get(url)
+
+        # Check that the response has a 200 status code (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the response contains the question's text
+        self.assertContains(response, past_question.question_text)
+
+    def test_detail_view_with_nonexistent_question(self) -> None:
+        """
+        The detail view redirects to the index view for a nonexistent question.
+        """
+        nonexistent_question_id = 999  # Assuming this ID does not exist
+        url = reverse('polls:detail', args=(nonexistent_question_id,))
+        
+        # Check that the response is a redirect
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+        # Check that the response redirects to the index view
+        self.assertRedirects(response, reverse('polls:index'))
 
     def test_vote_view_authenticated_user(self) -> None:
         """

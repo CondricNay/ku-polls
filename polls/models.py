@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.http import HttpRequest
 from django.utils import timezone
@@ -37,6 +38,20 @@ class Question(models.Model):
                                     verbose_name='published date')
     end_date = models.DateTimeField(default=end_date_default,
                                     verbose_name='end date')
+
+    def clean(self) -> None:
+        """
+        Custom validation to ensure pub_date is earlier than end_date.
+        """
+        if self.pub_date >= self.end_date:
+            raise ValidationError("The 'published date' must be earlier than the 'end date'.")
+
+    def save(self, *args, **kwargs) -> None:
+        """
+        Override the save method to ensure clean() is called before saving.
+        """
+        self.clean()
+        super().save(*args, **kwargs)
 
     def was_published_recently(self) -> bool:
         """
