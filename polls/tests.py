@@ -23,8 +23,7 @@ class QuestionModelTests(TestCase):
         """
         Test that pub_date cannot be equal to end_date.
         """
-        pub_date = now_plus(1)
-        end_date = now_plus(1)
+        pub_date = end_date = now_plus(1)
         question = Question(question_text="Test Question", pub_date=pub_date, end_date=end_date)
         with self.assertRaises(ValidationError):
             question.save()
