@@ -1,223 +1,279 @@
 [
 {
   "model": "polls.question",
-  "pk": 1,
-  "fields": {
-    "question_text": "Which cafeteria (Bar) do you like most in Kasetsart University?",
-    "pub_date": "2023-09-13T17:00:41.031Z",
-    "end_date": "2023-09-14T17:00:41.031Z"
-  }
-},
-{
-  "model": "polls.question",
-  "pk": 2,
-  "fields": {
-    "question_text": "Which wildlife animal do you meet the most at Kasetsart University",
-    "pub_date": "2023-09-13T17:00:41.127Z",
-    "end_date": "2023-09-14T17:00:41.127Z"
-  }
-},
-{
-  "model": "polls.question",
-  "pk": 3,
-  "fields": {
-    "question_text": "Hello",
-    "pub_date": "2023-09-13T17:00:41.299Z",
-    "end_date": "2023-09-18T17:00:41.299Z"
-  }
-},
-{
-  "model": "polls.question",
-  "pk": 4,
-  "fields": {
-    "question_text": "Konichiwa",
-    "pub_date": "2023-09-14T06:46:29.628Z",
-    "end_date": "2023-09-19T06:46:29.628Z"
-  }
-},
-{
-  "model": "polls.question",
-  "pk": 5,
-  "fields": {
-    "question_text": "Duplicated Question",
-    "pub_date": "2023-09-15T15:30:12.157Z",
-    "end_date": "2023-09-20T15:30:12.157Z"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 1,
-  "fields": {
-    "question": 1,
-    "choice_text": "New Bar"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 2,
-  "fields": {
-    "question": 1,
-    "choice_text": "Engineering Bar"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 3,
-  "fields": {
-    "question": 1,
-    "choice_text": "Science Bar"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 4,
-  "fields": {
-    "question": 1,
-    "choice_text": "Business Bar"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 5,
-  "fields": {
-    "question": 2,
-    "choice_text": "Bird"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 6,
-  "fields": {
-    "question": 2,
-    "choice_text": "Cat"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 7,
-  "fields": {
-    "question": 2,
-    "choice_text": "Dog"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 8,
-  "fields": {
-    "question": 2,
-    "choice_text": "Insect"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 9,
-  "fields": {
-    "question": 2,
-    "choice_text": "Squirrel"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 10,
-  "fields": {
-    "question": 2,
-    "choice_text": "Turtle"
-  }
-},
-{
-  "model": "polls.choice",
-  "pk": 11,
-  "fields": {
-    "question": 2,
-    "choice_text": "Water Monitor Lizard"
-  }
-},
-{
-  "model": "polls.choice",
   "pk": 12,
   "fields": {
-    "question": 3,
-    "choice_text": "World"
+    "question_text": "In your opinion, which book genre is the most captivating?",
+    "pub_date": "2023-09-20T08:25:40Z",
+    "end_date": "2023-09-20T11:25:40Z"
   }
 },
 {
-  "model": "polls.choice",
+  "model": "polls.question",
   "pk": 13,
   "fields": {
-    "question": 3,
-    "choice_text": "Goodbye"
+    "question_text": "What's your favorite outdoor activity for relaxation?",
+    "pub_date": "2023-09-20T08:30:24Z",
+    "end_date": "2023-09-25T08:30:24Z"
   }
 },
 {
-  "model": "polls.choice",
+  "model": "polls.question",
   "pk": 14,
   "fields": {
-    "question": 4,
-    "choice_text": "Ohayou"
+    "question_text": "When it comes to pizza toppings, what's your go-to choice?",
+    "pub_date": "2023-09-20T08:30:42Z",
+    "end_date": "2023-09-27T08:30:42Z"
   }
 },
 {
-  "model": "polls.choice",
+  "model": "polls.question",
   "pk": 15,
   "fields": {
-    "question": 4,
-    "choice_text": "Oyasumi"
+    "question_text": "Which historical era do you find most intriguing?",
+    "pub_date": "2023-09-20T08:30:51Z",
+    "end_date": "2023-09-29T08:30:51Z"
   }
 },
 {
-  "model": "polls.choice",
+  "model": "polls.question",
   "pk": 16,
   "fields": {
-    "question": 5,
-    "choice_text": "New Bar"
+    "question_text": "What type of music do you enjoy listening to the most?",
+    "pub_date": "2023-09-20T08:31:03Z",
+    "end_date": "2023-10-20T08:31:03Z"
   }
 },
 {
   "model": "polls.choice",
-  "pk": 17,
+  "pk": 20,
   "fields": {
-    "question": 5,
-    "choice_text": "Engineering Bar"
+    "question": 12,
+    "choice_text": "Mystery"
   }
 },
 {
   "model": "polls.choice",
-  "pk": 18,
+  "pk": 21,
   "fields": {
-    "question": 5,
-    "choice_text": "Science Bar"
+    "question": 12,
+    "choice_text": "Science Fiction"
   }
 },
 {
   "model": "polls.choice",
-  "pk": 19,
+  "pk": 22,
   "fields": {
-    "question": 5,
-    "choice_text": "Business Bar"
+    "question": 12,
+    "choice_text": "Romance"
   }
 },
 {
-  "model": "polls.vote",
+  "model": "polls.choice",
+  "pk": 23,
+  "fields": {
+    "question": 12,
+    "choice_text": "Fantasy"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 24,
+  "fields": {
+    "question": 12,
+    "choice_text": "Others"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 25,
+  "fields": {
+    "question": 13,
+    "choice_text": "Football"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 26,
+  "fields": {
+    "question": 13,
+    "choice_text": "Cycling"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 27,
+  "fields": {
+    "question": 13,
+    "choice_text": "Running"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 28,
+  "fields": {
+    "question": 13,
+    "choice_text": "Badminton"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 29,
+  "fields": {
+    "question": 13,
+    "choice_text": "Basketball"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 30,
+  "fields": {
+    "question": 13,
+    "choice_text": "Others"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 31,
+  "fields": {
+    "question": 14,
+    "choice_text": "Pepperoni"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 32,
+  "fields": {
+    "question": 14,
+    "choice_text": "Hawaiian"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 33,
+  "fields": {
+    "question": 14,
+    "choice_text": "Shrimp Cocktail"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 34,
+  "fields": {
+    "question": 14,
+    "choice_text": "Sausages and Bacon"
+  }
+},
+{
+  "model": "polls.choice",
   "pk": 35,
   "fields": {
-    "choice": 16,
-    "user": 6
+    "question": 14,
+    "choice_text": "Others"
   }
 },
 {
-  "model": "polls.vote",
+  "model": "polls.choice",
   "pk": 36,
   "fields": {
-    "choice": 13,
-    "user": 9
+    "question": 15,
+    "choice_text": "Ancient Greece"
   }
 },
 {
-  "model": "polls.vote",
+  "model": "polls.choice",
   "pk": 37,
   "fields": {
-    "choice": 12,
-    "user": 8
+    "question": 15,
+    "choice_text": "Renaissance"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 38,
+  "fields": {
+    "question": 15,
+    "choice_text": "World War II"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 39,
+  "fields": {
+    "question": 15,
+    "choice_text": "Cold War"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 40,
+  "fields": {
+    "question": 15,
+    "choice_text": "Others"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 41,
+  "fields": {
+    "question": 16,
+    "choice_text": "Pop"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 42,
+  "fields": {
+    "question": 16,
+    "choice_text": "Rock"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 43,
+  "fields": {
+    "question": 16,
+    "choice_text": "Indie"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 44,
+  "fields": {
+    "question": 16,
+    "choice_text": "Classical"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 45,
+  "fields": {
+    "question": 16,
+    "choice_text": "Hip-Hop"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 46,
+  "fields": {
+    "question": 16,
+    "choice_text": "Electronic"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 47,
+  "fields": {
+    "question": 16,
+    "choice_text": "Jazz"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 48,
+  "fields": {
+    "question": 16,
+    "choice_text": "Others"
   }
 }
 ]

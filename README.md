@@ -13,39 +13,44 @@ https://cpske.github.io/ISP) course at Kasetsart University.
 
 ---
 
-## Install and Run
+## Installing the Application
 
-1. Start the server in the virtual environment. 
-   ```
-   # activate the virtualenv for this project. On Linux or MacOS:
-   source env/bin/activate
-   # on MS Windows:
-   env\Scripts\activate
+See [Installation.md](https://github.com/CondricNay/ku-polls/blob/main/Installation.md) for installations guide.
 
-   # start the django server
-   python3 manage.py runserver
-   ```
-   This starts a web server listening on port 8000.
+## Running the Application
+Now that you've configured your Django project and set up the environment, it's time to run your application. Follow these steps:
 
-2. You should see this message printed in the terminal window:
-   ```
-   Starting development server at http://127.0.0.1:8000/
-   Quit the server with CONTROL-C.
-   ```
-   If you get a message that the port is unavailable, then run the server on a different port (1024 thru 65535) such as:
-   ```
-   python3 manage.py runserver 12345
-   ```
+Activate the virtual environment (if it's not already activated):
+```
+# On Windows:
+venv\Scripts\activate
+# On Unix/Linux/macOS:
+source venv/bin/activate
+```
 
-3. In a web browser, navigate to <http://localhost:8000>
+Start the Django development server with the following command:
 
-4. To stop the server, press CTRL-C in the terminal window. Exit the virtual environment by closing the window or by typing:
-   ```
-   deactivate
-   ```
+```
+python manage.py runserver
+```
 
----
+This command will start the development server, and you'll see output similar to:
+```
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
 
+Your Django application is now running locally at http://127.0.0.1:8000/ (or http://localhost:8000/). You can access it in your web browser.
+
+If this is the first time you are running the server, you may need to migrate after running the server
+```
+python manage.py migrate polls
+```
+
+To stop the server, press CTRL-C in the terminal window. Exit the virtual environment by closing the window or by typing:
+```
+deactivate
+```
 ## Project Documents
 
 All project documents are in the [Project Wiki](../../wiki/Home).
@@ -57,6 +62,7 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Iteration 1 Plan](../../wiki/Iteration-1-Plan)
 - [Iteration 2 Plan](../../wiki/Iteration-2-Plan)
 - [Iteration 3 Plan](../../wiki/Iteration-3-Plan)
+- [Iteration 4 Plan](../../wiki/Iteration-4-Plan)
 - [Task Board](https://github.com/users/CondricNay/projects/3/views/1)
 
 [django-tutorial]: https://docs.djangoproject.com/en/4.2/intro/tutorial01/

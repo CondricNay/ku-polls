@@ -127,7 +127,11 @@ class Choice(models.Model):
         Returns:
             float: The percentage of votes for this choice.
         """
-        return (self.votes / self.question.get_all_votes()) * 100
+        all_votes = self.question.get_all_votes()
+        if all_votes == 0:
+            return 0
+        
+        return (self.votes / all_votes) * 100
 
     def __str__(self) -> str:
         """
