@@ -13,9 +13,34 @@ https://cpske.github.io/ISP) course at Kasetsart University.
 
 ---
 
-## Install and Run
+## Installing the Application
 
 See [Installation.md](https://github.com/CondricNay/ku-polls/blob/main/Installation.md) for installations guide.
+
+## Running the Application
+Now that you've configured your Django project and set up the environment, it's time to run your application. Follow these steps:
+
+Activate the virtual environment (if it's not already activated):
+```
+# On Windows:
+venv\Scripts\activate
+# On Unix/Linux/macOS:
+source venv/bin/activate
+```
+
+Start the Django development server with the following command:
+
+```
+python manage.py runserver
+```
+
+This command will start the development server, and you'll see output similar to:
+```
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+
+Your Django application is now running locally at http://127.0.0.1:8000/ (or http://localhost:8000/). You can access it in your web browser.
 
 
 ## Project Documents

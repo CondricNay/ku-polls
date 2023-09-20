@@ -36,13 +36,10 @@ pip install -r requirements.txt
 ```
 
 ## Set Values for Externalized Variables
-To enhance security and flexibility, it's advisable to externalize certain configuration variables, such as **SECRET_KEY**, **DEBUG**, **ALLOWED_HOSTS**, and **TIME_ZONE**. You can achieve this using a library called `python-decouple`. First, install it using pip:
+To enhance security and flexibility, it's advisable to externalize certain configuration variables, such as **SECRET_KEY**, **DEBUG**, **ALLOWED_HOSTS**, and **TIME_ZONE**. You can achieve this using a library called `python-decouple`. 
 
-```
-pip install python-decouple
-```
-
-Now, create a .env file in your project's root directory and specify the values for these variables:
+Create a `.env` file in your project's root directory 
+and specify the values for these variables:
 
 **DO NOT PUT QUOTES BETWEEN THE VALUES!**
 
@@ -64,9 +61,10 @@ Now replace the my-secret-key-value with the actual secret key value
 
 You can create a secret key using:
 ```
-from django.core.management.utils import get_random_secret_key
+python manage.py shell
 
-secret_key = get_random_secret_key()
+>> from django.core.management.utils import get_random_secret_key
+>> get_random_secret_key()
 ```
 
 ## Run Migrations
@@ -85,31 +83,18 @@ python manage.py test polls
 This will execute the test suite for your 'polls' app.
 
 ## Install data from the data fixtures
-
+To populate your database with data from data fixtures, use the following command:
 ```
-
+python manage.py loaddata data/users.json data/polls.json
 ```
-## Running the Django Application
-Now that you've configured your Django project and set up the environment, it's time to run your application. Follow these steps:
+This command will load the data from the `users.json` and `polls.json` fixtures into your Django application's database, making the defined data available for use within your application.
 
-Activate the virtual environment (if it's not already activated):
+Now, migrate the database again.
 ```
-# On Windows:
-venv\Scripts\activate
-# On Unix/Linux/macOS:
-source venv/bin/activate
+python manage.py migrate polls
 ```
 
-Start the Django development server with the following command:
-
-```
-python manage.py runserver
-```
-
-This command will start the development server, and you'll see output similar to:
-```
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CONTROL-C.
-```
+## Running the Application
+See [README.md](https://github.com/CondricNay/ku-polls/blob/main/README.md) for running guide.
 
 Your Django application is now running locally at http://127.0.0.1:8000/ (or http://localhost:8000/). You can access it in your web browser.
