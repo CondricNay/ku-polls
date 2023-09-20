@@ -67,6 +67,8 @@ python manage.py shell
 >> get_random_secret_key()
 ```
 
+To quit the shell, use `quit()`
+
 ## Run Migrations
 To set up the database schema, perform database migrations as follows:
 ```
@@ -88,11 +90,6 @@ To populate your database with data from data fixtures, use the following comman
 python manage.py loaddata data/users.json data/polls.json
 ```
 This command will load the data from the `users.json` and `polls.json` fixtures into your Django application's database, making the defined data available for use within your application.
-
-Now, migrate the database again.
-```
-python manage.py migrate polls
-```
 
 ## Running the Application
 See [README.md](https://github.com/CondricNay/ku-polls/blob/main/README.md) for running guide.

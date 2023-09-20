@@ -42,7 +42,15 @@ Quit the server with CONTROL-C.
 
 Your Django application is now running locally at http://127.0.0.1:8000/ (or http://localhost:8000/). You can access it in your web browser.
 
+If this is the first time you are running the server, you may need to migrate after running the server
+```
+python manage.py migrate polls
+```
 
+To stop the server, press CTRL-C in the terminal window. Exit the virtual environment by closing the window or by typing:
+```
+deactivate
+```
 ## Project Documents
 
 All project documents are in the [Project Wiki](../../wiki/Home).
