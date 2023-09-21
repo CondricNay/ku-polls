@@ -77,3 +77,8 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 |  hermione | hackme22        |
 |   draco   | hackme22        |
 
+
+## Administrators
+| Username  | Password        |
+|-----------|-----------------|
+|   admin   | admin           |
