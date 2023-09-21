@@ -90,6 +90,43 @@ class QuestionModelTests(TestCase):
 
 
 class ChoiceModelTests(TestCase):
+    def setUp(self) -> None:
+        # Create a sample question
+        self.question = Question.objects.create(
+            question_text="What is your favorite color?"
+        )
+
+    def test_clean_method_valid(self) -> None:
+        # Create a choice with a unique choice_text
+        choice = Choice(question=self.question, choice_text="Red")
+        choice.clean()  # This should not raise any exception
+        choice.save()  # This should save the choice successfully
+
+    def test_clean_method_non_unique(self) -> None:
+        # Create a choice with non-unique choice_text
+        choice1 = Choice(question=self.question, choice_text="Red")
+        choice1.save()
+
+        # Try to create another choice with the same choice_text
+        choice2 = Choice(question=self.question, choice_text="red")
+        with self.assertRaises(ValidationError):
+            choice2.clean()  # This should raise a ValidationError
+            choice2.save()  # This should not save the choice
+
+    def test_save_method(self) -> None:
+        # Create a choice with a unique choice_text
+        choice = Choice(question=self.question, choice_text="Green")
+        choice.save()  # This should save the choice successfully
+
+        # Try to create another choice with the same choice_text
+        choice_duplicate = Choice(question=self.question, choice_text="green")
+        with self.assertRaises(ValidationError):
+            choice_duplicate.save()  # This should raise a ValidationError
+
+        # Try to create another choice with a different choice_text
+        choice_different = Choice(question=self.question, choice_text="Blue")
+        choice_different.save()  # This should save the choice successfully
+
     def test_get_percentage_vote(self) -> None:
         """
         Test that the percentage of votes for a choice is calculated correctly.

@@ -120,6 +120,24 @@ class Choice(models.Model):
         """
         return self.vote_set.count()
 
+    def clean(self) -> None:
+        """
+        Custom validation to ensure that the choice_text is unique among existing choices.
+        Raises a ValidationError if the choice_text is not unique.
+        """
+        text_exists = Choice.objects.filter(question=self.question,
+                                            choice_text__iexact=self.choice_text).exists()
+
+        if text_exists:
+            raise ValidationError("Choice with this text already exists.")
+
+    def save(self, *args, **kwargs) -> None:
+        """
+        Override the save method to ensure clean() is called before saving.
+        """
+        self.clean()
+        super().save(*args, **kwargs)
+
     def get_percentage_vote(self) -> float:
         """
         Calculate the percentage of votes for this choice among all votes for the question.
