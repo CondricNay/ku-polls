@@ -45,6 +45,33 @@
   }
 },
 {
+  "model": "polls.question",
+  "pk": 17,
+  "fields": {
+    "question_text": "Which aspect of Python do you find most challenging?",
+    "pub_date": "2023-09-30T07:55:20Z",
+    "end_date": "2023-10-01T07:55:20Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 18,
+  "fields": {
+    "question_text": "Which career path would like to go to in the future?",
+    "pub_date": "2023-09-30T07:55:54Z",
+    "end_date": "2023-10-10T07:55:54Z"
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 20,
+  "fields": {
+    "question_text": "What do you like most about Python?",
+    "pub_date": "2023-09-30T07:57:31Z",
+    "end_date": "2023-10-20T07:57:31Z"
+  }
+},
+{
   "model": "polls.choice",
   "pk": 20,
   "fields": {
@@ -273,6 +300,134 @@
   "pk": 48,
   "fields": {
     "question": 16,
+    "choice_text": "Others"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 55,
+  "fields": {
+    "question": 20,
+    "choice_text": "Extensive Standard Library"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 56,
+  "fields": {
+    "question": 20,
+    "choice_text": "Strong Community and Documentation"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 57,
+  "fields": {
+    "question": 20,
+    "choice_text": "Versatility for Various Applications"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 58,
+  "fields": {
+    "question": 20,
+    "choice_text": "Others"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 59,
+  "fields": {
+    "question": 20,
+    "choice_text": "I don't like Python"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 60,
+  "fields": {
+    "question": 17,
+    "choice_text": "Functions and Methods"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 61,
+  "fields": {
+    "question": 17,
+    "choice_text": "Conditionals (if/else)"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 62,
+  "fields": {
+    "question": 17,
+    "choice_text": "Loops (for/while)"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 63,
+  "fields": {
+    "question": 17,
+    "choice_text": "Data Structures (lists, dictionaries, etc.)"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 64,
+  "fields": {
+    "question": 17,
+    "choice_text": "Others"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 65,
+  "fields": {
+    "question": 18,
+    "choice_text": "Front-end"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 66,
+  "fields": {
+    "question": 18,
+    "choice_text": "Back-end"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 67,
+  "fields": {
+    "question": 18,
+    "choice_text": "AI and ML"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 68,
+  "fields": {
+    "question": 18,
+    "choice_text": "Game Developer"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 69,
+  "fields": {
+    "question": 18,
+    "choice_text": "Cybersecurity"
+  }
+},
+{
+  "model": "polls.choice",
+  "pk": 70,
+  "fields": {
+    "question": 18,
     "choice_text": "Others"
   }
 }
