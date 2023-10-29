@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('question_text', models.CharField(max_length=200)),
-                ('pub_date', models.DateTimeField(default=polls.models.Question.pub_date_default, verbose_name='published date')),
-                ('end_date', models.DateTimeField(default=polls.models.Question.end_date_default, verbose_name='end date')),
+                ('pub_date', models.DateTimeField(default=polls.models.question.Question.pub_date_default, verbose_name='published date')),
+                ('end_date', models.DateTimeField(default=polls.models.question.Question.end_date_default, verbose_name='end date')),
             ],
         ),
         migrations.CreateModel(

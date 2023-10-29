@@ -3,7 +3,10 @@ from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from django.urls import reverse
 
-from .models import Question, Choice, Vote, AuthorizedUser, now_plus
+from .models.auth_user import AuthorizedUser
+from .models.choice import Choice
+from .models.question import now_plus, Question
+from .models.vote import Vote
 
 
 class QuestionModelTests(TestCase):

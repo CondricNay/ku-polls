@@ -11,7 +11,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from .models import AuthorizedUser, Choice, Question
+from .models.auth_user import AuthorizedUser
+from .models.choice import Choice
+from .models.question import Question
 
 
 class IndexView(generic.ListView):
